@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import connectDB from "./Database/config.js";
 import authRoute from "./Routers/authRouter.js";
 import propertrouter from "./Routers/propertyRoutes.js";
+import bookingRouter from "./Routers/bookingRoutes.js";
 
 
 
@@ -39,6 +40,7 @@ app.get('/',(req,res)=>{
 //Auth Router
 app.use("/api/auth",authRoute);
 app.use("/api/property",propertrouter);
+app.use("/api/bookings",bookingRouter)
 
 
 

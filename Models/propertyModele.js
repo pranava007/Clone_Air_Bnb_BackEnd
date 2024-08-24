@@ -30,6 +30,10 @@ const propertySchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  totalprice:{
+    type:Number,
+    required:true,
+  },
   amenities: [{
     type: String,
   }],
@@ -62,6 +66,9 @@ const propertySchema = new mongoose.Schema({
   timestamps: true,
 });
 
-const Property = mongoose.model('Property', propertySchema);
+// const Property = mongoose.model('Property', propertySchema);
+// export default Property;
+const Property = mongoose.models.Property || mongoose.model('Property', propertySchema);
+
 export default Property;
 
