@@ -1,4 +1,4 @@
-import Property from "../models/propertyModele.js";
+import Property from "../Models/propertyModele.js";
 
 
 
