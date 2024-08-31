@@ -1,4 +1,6 @@
-import Property from "../Models/propertyModele.js";
+import Property from "../models/propertyModele.js";
+
+
 
 // Create a new property
 
