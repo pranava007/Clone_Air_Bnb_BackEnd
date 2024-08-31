@@ -1,6 +1,6 @@
 import Booking from '../Models/bookingModle.js'; // Adjust the path as needed
-import Property from '../models/propertyModele.js'; // Adjust the path as needed
-import User from '../models/userModle.js'; // Adjust the path as needed
+import Property from '../Models/propertyModele.js'; // Adjust the path as needed
+import User from '../Models/userModle.js'; // Adjust the path as needed
 
 // Create a new booking
 export const createBooking = async (req, res) => {
