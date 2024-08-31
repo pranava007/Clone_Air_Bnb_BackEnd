@@ -4,6 +4,7 @@ import Property from "../models/propertyModele.js";
 
 // Create a new property
 
+
 export const createProperty = async (req,res)=>{
     try {
         const { hostId, title, description, location, pricePerNight, amenities, images, availability,category,sub_title } = req.body;
