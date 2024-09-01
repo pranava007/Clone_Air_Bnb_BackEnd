@@ -32,7 +32,7 @@ const propertySchema = new mongoose.Schema({
   },
   totalprice:{
     type:Number,
-    required:true,
+    // required:true,
   },
   amenities: [{
     type: String,
