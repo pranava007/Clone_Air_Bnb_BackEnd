@@ -1,7 +1,7 @@
 import Stripe from "stripe";
 import { v4 as uuidv4 } from 'uuid';
-import Payment from '../Models/paymentSchema.js';
-import Booking from '../Models/bookingModel.js';
+import Payment from '../Models/paymentShema.js';
+import Booking from '../Models/bookingModle.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
