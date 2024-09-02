@@ -1,7 +1,7 @@
 import Stripe from "stripe";
 import { v4 as uuidv4 } from 'uuid';
-import Payment from '../Models/paymentShema.js';
-import Booking from '../Models/bookingModle.js';
+import Payment from '../Models/paymentSchema.js';
+import Booking from '../Models/bookingModel.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -13,6 +13,9 @@ export const processPayment = async (req, res) => {
     const transactionKey = uuidv4();
 
     try {
+        // Log the received data
+        console.log("Received data:", { Product, token, userId, bookingId });
+
         const customer = await stripe.customers.create({
             email: token.email,
             source: token.id,
@@ -30,7 +33,7 @@ export const processPayment = async (req, res) => {
         const payment = new Payment({
             productId: Product._id,
             userId,
-            amount: Product.price,
+            amount: Product.price, // Ensure this is set
             transactionKey,
             status: 'completed',
         });
@@ -50,7 +53,7 @@ export const processPayment = async (req, res) => {
         const payment = new Payment({
             productId: Product._id,
             userId,
-            amount: Product.price,
+            amount: Product.price, // Ensure this is set
             transactionKey,
             status: 'failed',
         });
