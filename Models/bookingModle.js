@@ -23,6 +23,10 @@ const bookingSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  transactionKey: {
+    type: String,
+    // required: true,
+  },
   status: {
     type: String,
     enum: ['confirmed', 'pending', 'canceled'],
