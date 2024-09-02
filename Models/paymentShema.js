@@ -13,7 +13,7 @@ const paymentSchema = new mongoose.Schema({
   },
   amount: {
     type: Number,
-    required: true, // This field is required
+    
   },
   transactionKey: {
     type: String,
