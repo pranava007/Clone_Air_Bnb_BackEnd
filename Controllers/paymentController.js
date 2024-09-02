@@ -1,9 +1,8 @@
 import Stripe from "stripe";
 import { v4 as uuidv4 } from 'uuid';
-// import Booking from '../Models/bookingModle.js';
+import Payment from '../Models/bookingModle.js';
 import dotenv from 'dotenv';
-import Booking from "../Models/bookingModle.js";
-// Booking
+
 
 dotenv.config();
 
@@ -28,7 +27,7 @@ export const processPayment = async (req, res) => {
         });
 
         // Save payment details to the database
-        const Booking = new Payment({
+        const payment = new Payment({
             productId: Product._id,
             userId,
             amount: Product.price,
@@ -36,14 +35,14 @@ export const processPayment = async (req, res) => {
             status: 'completed',
         });
 
-        await Booking.save();
+        await payment.save();
 
         res.json({ success: true, charge });
     } catch (error) {
         console.error(error);
 
         // Save failed payment attempt to the database
-        const Booking = new Payment({
+        const payment = new Payment({
             productId: Product._id,
             userId,
             amount: Product.price,
@@ -51,7 +50,7 @@ export const processPayment = async (req, res) => {
             status: 'failed',
         });
 
-        await Booking.save();
+        await payment.save();
 
         res.status(500).json({ success: false, message: "Payment failed", error: error.message });
     }
