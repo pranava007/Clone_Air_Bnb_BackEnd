@@ -26,6 +26,7 @@ export const createBooking = async (req, res) => {
             checkInDate,
             checkOutDate,
             totalPrice,
+            status: 'pending',
         });
 
         const booking = await newBooking.save();

@@ -1,15 +1,15 @@
 import Stripe from "stripe";
 import { v4 as uuidv4 } from 'uuid';
-import Payment from '../Models/bookingModle.js';
+import Payment from '../Models/paymentShema.js';
+import Booking from '../Models/bookingModle.js';
 import dotenv from 'dotenv';
-
 
 dotenv.config();
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const processPayment = async (req, res) => {
-    const { Product, token, userId } = req.body;
+    const { Product, token, userId, bookingId } = req.body;
     const transactionKey = uuidv4();
 
     try {
@@ -19,7 +19,7 @@ export const processPayment = async (req, res) => {
         });
 
         const charge = await stripe.charges.create({
-            amount: Product.price * 100,
+            amount: Product.price * 100,  // Stripe requires amount in cents
             currency: "inr",
             customer: customer.id,
             receipt_email: token.email,
@@ -36,6 +36,11 @@ export const processPayment = async (req, res) => {
         });
 
         await payment.save();
+
+        // Update the booking status to "confirmed" after successful payment
+        if (bookingId) {
+            await Booking.findByIdAndUpdate(bookingId, { status: 'confirmed', transactionKey }, { new: true });
+        }
 
         res.json({ success: true, charge });
     } catch (error) {
