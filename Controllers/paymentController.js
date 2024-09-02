@@ -8,7 +8,7 @@ dotenv.config();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const processPayment = async (req, res) => {
-    const { Product, token, userId } = req.body;  // Include userId to associate the payment with a user
+    const { Product, token, userId } = req.body;
     const transactionKey = uuidv4();
 
     try {
@@ -18,7 +18,7 @@ export const processPayment = async (req, res) => {
         });
 
         const charge = await stripe.charges.create({
-            amount: Product.price * 100,  // Stripe requires amount in cents
+            amount: Product.price * 100,
             currency: "inr",
             customer: customer.id,
             receipt_email: token.email,
