@@ -15,6 +15,7 @@ export const processPayment = async (req, res) => {
     try {
         // Log the received data
         console.log("Received data:", { Product, token, userId, bookingId });
+        const amountInPaise = Math.round(Product.price * 100);
 
         const customer = await stripe.customers.create({
             email: token.email,
@@ -22,7 +23,7 @@ export const processPayment = async (req, res) => {
         });
 
         const charge = await stripe.charges.create({
-            amount: Product.price * 100,  // Stripe requires amount in cents
+            amount: amountInPaise,  // Stripe requires amount in cents
             currency: "inr",
             customer: customer.id,
             receipt_email: token.email,
