@@ -38,56 +38,56 @@ export const createBooking = async (req, res) => {
     }
 };
 
-// Update booking status
-export const updateBookingStatus = async (req, res) => {
-    try {
-        const { bookingId } = req.params;
-        const { status } = req.body;
+// // Update booking status
+// export const updateBookingStatus = async (req, res) => {
+//     try {
+//         const { bookingId } = req.params;
+//         const { status } = req.body;
 
-        if (!['confirmed', 'pending', 'canceled'].includes(status)) {
-            return res.status(400).json({ message: 'Invalid status' });
-        }
+//         if (!['confirmed', 'pending', 'canceled'].includes(status)) {
+//             return res.status(400).json({ message: 'Invalid status' });
+//         }
 
-        const booking = await Booking.findById(bookingId);
+//         const booking = await Booking.findById(bookingId);
 
-        if (!booking) {
-            return res.status(404).json({ message: 'Booking not found' });
-        }
+//         if (!booking) {
+//             return res.status(404).json({ message: 'Booking not found' });
+//         }
 
-        booking.status = status;
-        const updatedBooking = await booking.save();
+//         booking.status = status;
+//         const updatedBooking = await booking.save();
 
-        res.status(200).json(updatedBooking);
-    } catch (error) {
-        console.error('Error updating booking status:', error);
-        res.status(500).json({ message: 'Server error' });
-    }
-};
+//         res.status(200).json(updatedBooking);
+//     } catch (error) {
+//         console.error('Error updating booking status:', error);
+//         res.status(500).json({ message: 'Server error' });
+//     }
+// };
 
-// Get all bookings (optional, might be used for admin or user profile)
-export const getBookings = async (req, res) => {
-    try {
-        const bookings = await Booking.find().populate('userId').populate('propertyId');
-        res.status(200).json(bookings);
-    } catch (error) {
-        console.error('Error fetching bookings:', error);
-        res.status(500).json({ message: 'Server error' });
-    }
-};
+// // Get all bookings (optional, might be used for admin or user profile)
+// export const getBookings = async (req, res) => {
+//     try {
+//         const bookings = await Booking.find().populate('userId').populate('propertyId');
+//         res.status(200).json(bookings);
+//     } catch (error) {
+//         console.error('Error fetching bookings:', error);
+//         res.status(500).json({ message: 'Server error' });
+//     }
+// };
 
-// Get a single booking by ID (optional)
-export const getBookingById = async (req, res) => {
-    try {
-        const { bookingId } = req.params;
-        const booking = await Booking.findById(bookingId).populate('userId').populate('propertyId');
+// // Get a single booking by ID (optional)
+// export const getBookingById = async (req, res) => {
+//     try {
+//         const { bookingId } = req.params;
+//         const booking = await Booking.findById(bookingId).populate('userId').populate('propertyId');
 
-        if (!booking) {
-            return res.status(404).json({ message: 'Booking not found' });
-        }
+//         if (!booking) {
+//             return res.status(404).json({ message: 'Booking not found' });
+//         }
 
-        res.status(200).json(booking);
-    } catch (error) {
-        console.error('Error fetching booking:', error);
-        res.status(500).json({ message: 'Server error' });
-    }
-};
+//         res.status(200).json(booking);
+//     } catch (error) {
+//         console.error('Error fetching booking:', error);
+//         res.status(500).json({ message: 'Server error' });
+//     }
+// };

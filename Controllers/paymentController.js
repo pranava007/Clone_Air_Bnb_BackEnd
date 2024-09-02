@@ -44,7 +44,7 @@ export const processPayment = async (req, res) => {
 
         res.json({ success: true, charge });
     } catch (error) {
-        console.error(error);
+        console.error('Payment Error:', error.message);
 
         // Save failed payment attempt to the database
         const payment = new Payment({
@@ -56,6 +56,11 @@ export const processPayment = async (req, res) => {
         });
 
         await payment.save();
+
+        // Optionally, update the booking status to "canceled" or leave it as "pending"
+        if (bookingId) {
+            await Booking.findByIdAndUpdate(bookingId, { status: 'canceled' }, { new: true });
+        }
 
         res.status(500).json({ success: false, message: "Payment failed", error: error.message });
     }
