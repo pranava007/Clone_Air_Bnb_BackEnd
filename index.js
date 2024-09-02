@@ -43,8 +43,8 @@ app.get('/',(req,res)=>{
 //Auth Router
 app.use("/api/auth",authRoute);
 app.use("/api/property",propertrouter);
-app.use("/api/bookings",bookingRouter)
-app.use("api/payment",paymentRouter)
+app.use("/api/bookings", bookingRouter);
+app.use("/api/payment", paymentRouter);
 
 
 

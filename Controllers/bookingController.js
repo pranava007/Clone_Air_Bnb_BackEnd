@@ -38,6 +38,7 @@ export const createBooking = async (req, res) => {
     }
 };
 
+
 // // Update booking status
 // export const updateBookingStatus = async (req, res) => {
 //     try {
