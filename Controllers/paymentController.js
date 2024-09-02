@@ -9,13 +9,17 @@ dotenv.config();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const processPayment = async (req, res) => {
-    const { Product, token, userId, bookingId } = req.body;
+    const { Product, token, userId, bookingId, amount } = req.body;
     const transactionKey = uuidv4();
 
     try {
         // Log the received data
-        console.log("Received data:", { Product, token, userId, bookingId });
-        const amountInPaise = Math.round(Product.price * 100);
+        console.log("Received data:", { Product, token, userId, bookingId, amount });
+
+        // Ensure amount is greater than zero
+        if (!amount || amount <= 0) {
+            return res.status(400).json({ success: false, message: "Invalid amount. Must be greater than 0." });
+        }
 
         const customer = await stripe.customers.create({
             email: token.email,
@@ -23,18 +27,20 @@ export const processPayment = async (req, res) => {
         });
 
         const charge = await stripe.charges.create({
-            amount: amountInPaise,  // Stripe requires amount in cents
+            amount, // Amount in cents
             currency: "inr",
             customer: customer.id,
             receipt_email: token.email,
             description: Product.name,
         });
 
+        console.log("Charge successful:", charge);
+
         // Save payment details to the database
         const payment = new Payment({
             productId: Product._id,
             userId,
-            amount: Product.price, // Ensure this is set
+            amount: amount / 100, // Convert back to INR for storage
             transactionKey,
             status: 'completed',
         });
@@ -54,7 +60,7 @@ export const processPayment = async (req, res) => {
         const payment = new Payment({
             productId: Product._id,
             userId,
-            amount: Product.price, // Ensure this is set
+            amount: amount / 100, // Convert back to INR for storage
             transactionKey,
             status: 'failed',
         });
