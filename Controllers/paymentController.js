@@ -15,6 +15,9 @@ export const processPayment = async (req, res) => {
     try {
         // Log the received data
         console.log("Received data:", { Product, token, userId, bookingId });
+        const amount = Product.price
+        console.log(amount);
+        
         const amountInPaise = Math.round(Product.price * 100);
 
         const customer = await stripe.customers.create({

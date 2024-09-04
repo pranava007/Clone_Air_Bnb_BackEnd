@@ -32,6 +32,7 @@ export const createBooking = async (req, res) => {
         const booking = await newBooking.save();
 
         res.status(201).json(booking);
+        
     } catch (error) {
         console.error('Error creating booking:', error);
         res.status(500).json({ message: 'Server error' });
