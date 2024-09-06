@@ -15,7 +15,7 @@ bookingRouter.post('/book', createBooking);
 bookingRouter.patch('/bookings/:bookingId/status', updateBookingStatus);
 
 // Route to get all bookings (for admin or general listing)
-bookingRouter.get('/getbooking', getBookings);
+bookingRouter.get('/bookings', getBookings);
 
 // Route to get a single booking by ID
 bookingRouter.get('/bookings/:bookingId', getBookingById);
