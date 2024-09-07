@@ -37,20 +37,6 @@ export const createReview = async (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Controller function to get reviews for a specific property
 export const getReviews = async (req, res) => {
   try {
