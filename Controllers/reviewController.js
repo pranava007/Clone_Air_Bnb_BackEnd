@@ -45,6 +45,8 @@ export const getReviews = async (req, res) => {
     // Find all reviews for the given property and populate the userId field to get the user's name
     const reviews = await Review.find({ propertyId }).populate('userId', 'name');
 
+    console.log(reviews);
+    
     // Return the reviews with a 200 OK status
     res.status(200).json(reviews);
   } catch (error) {
