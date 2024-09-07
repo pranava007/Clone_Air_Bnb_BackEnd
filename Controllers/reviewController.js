@@ -35,6 +35,21 @@ export const createReview = async (req, res) => {
   }
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Get all reviews for a property
 export const getReviews = async (req, res) => {
   try {
