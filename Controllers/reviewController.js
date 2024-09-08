@@ -37,23 +37,30 @@ export const createReview = async (req, res) => {
 
 
 
-// Controller function to get reviews for a specific property
-export const getReviews = async (req, res) => {
+export const getReview = async (req, res) => {
   try {
-    const { propertyId } = req.params; // Get the propertyId from request parameters
+    const { userId, propertyId } = req.query; // Retrieve query parameters from the request
 
-    // Find all reviews for the given property and populate the userId field to get the user's name
-    const reviews = await Review.find({ propertyId }).populate('userId', 'name');
-
-    console.log(reviews);
+    let filter = {};
     
-    // Return the reviews with a 200 OK status
-    res.status(200).json(reviews);
+    // Apply filtering criteria if provided
+    if (userId) {
+      filter.userId = userId;
+    }
+    if (propertyId) {
+      filter.propertyId = propertyId;
+    }
+
+    // Find reviews based on the filter criteria
+    const reviews = await Review.find(filter).populate('userId', 'name').populate('propertyId', 'title');
+
+    res.status(200).json(reviews); // Return the reviews with a 200 status code
   } catch (error) {
-    // Handle any errors and send a 500 Internal Server Error status
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    res.status(500).json({ message: 'Server Error', error: error.message });
   }
 };
+
 
 
 
