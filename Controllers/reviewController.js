@@ -52,7 +52,7 @@ export const getReview = async (req, res) => {
     }
 
     // Find reviews based on the filter criteria
-    const reviews = await Review.find(filter).populate('userId', 'name').populate('propertyId', 'title');
+    const reviews = await Review.find(filter).populate('userId', 'username').populate('propertyId', 'title');
 
     res.status(200).json(reviews); // Return the reviews with a 200 status code
   } catch (error) {
